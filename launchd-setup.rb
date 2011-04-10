@@ -34,7 +34,7 @@ write_file(JENKINS_WAR_FILE) { |file| file.write String.new(jenkins_war) }
 ### Launchd setup
 
 LAUNCHD_LABEL     = 'org.jenkins-ci.jenkins'
-LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'.stringByExpandingTildeInPath
+LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
