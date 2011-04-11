@@ -15,10 +15,7 @@ end
 
 
 ### Setup directories
-
-mkdir JENKINS_INSTALL_DIR
-mkdir JENKINS_HOME_DIR
-mkdir JENKINS_LOG_DIR
+mkdir_p [JENKINS_INSTALL_DIR, JENKINS_HOME_DIR, JENKINS_LOG_DIR]
 
 
 ### Download and install the .war file
