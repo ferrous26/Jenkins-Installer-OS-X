@@ -35,7 +35,7 @@ LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
-  'KeepAlive'            => true, # or maybe RunAtLoad would be better?
+  'RunAtLoad'            => true,
   'EnvironmentVariables' => { 'JENKINS_HOME' => JENKINS_HOME_DIR },
   'StandardOutPath'      => File.join(JENKINS_LOG_DIR, 'jenkins.log'),
   'StandardErrorPath'    => File.join(JENKINS_LOG_DIR, 'jenkins-error.log'),
