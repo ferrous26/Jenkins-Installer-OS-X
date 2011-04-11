@@ -19,12 +19,9 @@ mkdir_p [JENKINS_INSTALL_DIR, JENKINS_HOME_DIR, JENKINS_LOG_DIR]
 
 
 ### Download and install the .war file
-
 jenkins_url = NSURL.alloc.initWithString JENKINS_DOWNLOAD_URL
 jenkins_war = NSMutableData.dataWithContentsOfURL jenkins_url
-
 raise 'Failed to download Jenkins' if jenkins_war.nil?
-
 write_file(JENKINS_WAR_FILE) { |file| file.write String.new(jenkins_war) }
 
 
