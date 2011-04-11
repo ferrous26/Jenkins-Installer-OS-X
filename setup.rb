@@ -39,8 +39,7 @@ LAUNCHD_SCRIPT    = {
   'EnvironmentVariables' => { 'JENKINS_HOME' => JENKINS_HOME_DIR },
   'StandardOutPath'      => File.join(JENKINS_LOG_DIR, 'jenkins.log'),
   'StandardErrorPath'    => File.join(JENKINS_LOG_DIR, 'jenkins-error.log'),
-  'Program'              => '/usr/bin/java',
-  'ProgramArguments'     => [ '-jar', JENKINS_WAR_FILE, '--httpPort=9001' ]
+  'ProgramArguments'     => [ '/usr/bin/java', '-jar', JENKINS_WAR_FILE ]
   # @todo Maybe setup Bonjour using the Socket key
 }
 
