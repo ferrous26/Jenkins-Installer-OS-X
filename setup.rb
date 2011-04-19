@@ -57,4 +57,9 @@ NSLog('Installing launchd plist')
 write_file File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) do |file|
   file.write LAUNCHD_SCRIPT.to_plist
 end
+
+NSLog('Starting launchd job for Jenkins')
+`sudo launchctl load  #{File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)}`
+`sudo launchctl start #{LAUNCHD_LABEL}`
+
 NSLog('Jenkins install complete.')
