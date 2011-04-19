@@ -5,6 +5,13 @@ framework 'Foundation'
 require 'fileutils'
 include FileUtils
 
+
+unless ENV['USER'] == 'root'
+  NSLog('You need to run this script as root.')
+  exit
+end
+
+
 JENKINS_DOWNLOAD_URL = 'http://mirrors.jenkins-ci.org/war/latest/jenkins.war'
 JENKINS_INSTALL_DIR  = '/Library/Application Support/Jenkins'
 JENKINS_WAR_FILE     = File.join( JENKINS_INSTALL_DIR, 'jenkins.war' )
@@ -46,7 +53,6 @@ LAUNCHD_SCRIPT    = {
   # @todo Maybe setup Bonjour using the Socket key
 }
 
-# this step requires root permissions
 NSLog('Installing launchd plist')
 write_file File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) do |file|
   file.write LAUNCHD_SCRIPT.to_plist
