@@ -1,5 +1,7 @@
 #!/usr/bin/env macruby
 
+framework 'Foundation'
+
 require 'fileutils'
 include FileUtils
 
@@ -15,18 +17,22 @@ end
 
 
 ### Setup directories
+NSLog('Creating data and logging directories')
 mkdir_p [JENKINS_INSTALL_DIR, JENKINS_HOME_DIR, JENKINS_LOG_DIR]
 
 
 ### Download and install the .war file
+NSLog('Downloading the latest release of Jenkins')
 jenkins_url = NSURL.alloc.initWithString JENKINS_DOWNLOAD_URL
 jenkins_war = NSMutableData.dataWithContentsOfURL jenkins_url
 raise 'Failed to download Jenkins' if jenkins_war.nil?
+
+NSLog('Installing Jenkins')
 write_file(JENKINS_WAR_FILE) { |file| file.write String.new(jenkins_war) }
 
 
 ### Launchd setup
-
+NSLog('Creating launchd plist')
 LAUNCHD_LABEL     = 'org.jenkins-ci.jenkins'
 LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
@@ -41,6 +47,8 @@ LAUNCHD_SCRIPT    = {
 }
 
 # this step requires root permissions
+NSLog('Installing launchd plist')
 write_file File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) do |file|
   file.write LAUNCHD_SCRIPT.to_plist
 end
+NSLog('Jenkins install complete.')
