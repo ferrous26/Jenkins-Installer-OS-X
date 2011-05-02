@@ -75,11 +75,16 @@ LAUNCHD_SCRIPT    = {
 }
 
 NSLog('Installing launchd plist')
-write_file File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) do |file|
+write_file File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE) do |file|
   file.write LAUNCHD_SCRIPT.to_plist
 end
 
 NSLog('Starting launchd job for Jenkins')
+if File::exists?( File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) )
+     File::remove([File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)])
+  end
+ ln_s(File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE),File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE))
+
 `sudo launchctl load  #{File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)}`
 `sudo launchctl start #{LAUNCHD_LABEL}`
 
