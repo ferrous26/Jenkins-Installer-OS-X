@@ -5,9 +5,24 @@ This project aims to create a Mac OS installer package for setting up Jenkins on
 Right now it is just a simple MacRuby script, but it has most of the features that the installer will have.
 
 - Jenkins is installed to `/Library/Application Support/Jenkins`
-- The JENKINS\_HOME is set to `/Library/Application Support/Jenkins/working\_dir`
+- The JENKINS\_HOME is set to `/Library/Application Support/Jenkins/working_dir`
 - Logs are sent to `/Library/Logs/Jenkins`
 - A launchd plist is created and installed for Jenkins
+
+## Start/Stop script
+
+10 second how-to:
+
+```bash
+# Check on the status of Jenkins
+sudo ./jenkins_ctl.rb status
+
+# Stop Jenkins
+sudo ./jenkins_ctl.rb stop
+
+# Start Jenkins
+sudo ./jenkins_ctl.rb start
+```
 
 ## Special thanks to
 
