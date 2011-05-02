@@ -57,12 +57,11 @@ LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
 LAUNCHD_PATH      = File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)
 
-arguments = [ '/usr/bin/java', '-jar']
+arguments = [ '/usr/bin/java', '-jar', JENKINS_WAR_FILE ]
 
 if options.has_key?(:port)
   arguments.push('--httpPort %i' % options[:port])
 end
-arguments.push(JENKINS_WAR_FILE)
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
   'RunAtLoad'            => true,
