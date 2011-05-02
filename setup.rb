@@ -79,7 +79,7 @@ end
 
 NSLog('Starting launchd job for Jenkins')
 if File::exists?( File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) )
-     File::remove([File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)])
+  rm [File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)]
 end
 ln_s(File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE),File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE))
 
