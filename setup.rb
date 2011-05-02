@@ -8,6 +8,12 @@ require 'optparse'
 include FileUtils
 
 
+unless ENV['USER'] == 'root'
+  NSLog('You need to run this script as root.')
+  exit
+end
+
+
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: setup.rb [options]"
@@ -16,12 +22,6 @@ OptionParser.new do |opts|
     options[:port] = p
   end
 end.parse!
-
-
-unless ENV['USER'] == 'root'
-  NSLog('You need to run this script as root.')
-  exit
-end
 
 
 JENKINS_DOWNLOAD_URL = 'http://mirrors.jenkins-ci.org/war/latest/jenkins.war'
