@@ -58,10 +58,8 @@ LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
 LAUNCHD_PATH      = File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)
 
 arguments = [ '/usr/bin/java', '-jar', JENKINS_WAR_FILE ]
+arguments << "--httpPort=#{options[:port]}" if options.has_key?(:port)
 
-if options.has_key?(:port)
-  arguments.push('--httpPort %i' % options[:port])
-end
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
   'RunAtLoad'            => true,
