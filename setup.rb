@@ -5,19 +5,17 @@ framework 'Foundation'
 require 'fileutils'
 require 'optparse'
 
-include FileUtils  
+include FileUtils
 
 
 options = {}
-  OptionParser.new do |opts|
-    opts.banner = "Usage: setup.rb [options]"
+OptionParser.new do |opts|
+  opts.banner = "Usage: setup.rb [options]"
 
-    opts.on("-p", "--httpPort PORT",  "Port for jenkins HTTP Interface") do |p|
-      options[:port] = p
-    end
-  end.parse!
-
-  
+  opts.on("-p", "--httpPort PORT",  "Port for jenkins HTTP Interface") do |p|
+    options[:port] = p
+  end
+end.parse!
 
 
 unless ENV['USER'] == 'root'
@@ -61,8 +59,8 @@ LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
 arguments = [ '/usr/bin/java', '-jar']
 
 if options.has_key?(:port)
-  arguments.push('--httpPort %i' % options[:port]) 
-end     
+  arguments.push('--httpPort %i' % options[:port])
+end
 arguments.push(JENKINS_WAR_FILE)
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
@@ -82,8 +80,8 @@ end
 NSLog('Starting launchd job for Jenkins')
 if File::exists?( File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) )
      File::remove([File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)])
-  end
- ln_s(File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE),File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE))
+end
+ln_s(File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE),File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE))
 
 `sudo launchctl load  #{File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)}`
 `sudo launchctl start #{LAUNCHD_LABEL}`
