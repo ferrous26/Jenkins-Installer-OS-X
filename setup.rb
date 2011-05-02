@@ -55,6 +55,7 @@ NSLog('Creating launchd plist')
 LAUNCHD_LABEL     = 'org.jenkins-ci.jenkins'
 LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
+LAUNCHD_PATH      = File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)
 
 arguments = [ '/usr/bin/java', '-jar']
 
@@ -78,12 +79,12 @@ write_file File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE) do |file|
 end
 
 NSLog('Starting launchd job for Jenkins')
-if File::exists?( File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE) )
-  rm [File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)]
+if File::exists?( LAUNCHD_PATH )
+  rm LAUNCHD_PATH
 end
-ln_s(File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE),File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE))
+ln_s File.join(JENKINS_INSTALL_DIR, LAUNCHD_FILE), LAUNCHD_PATH
 
-`sudo launchctl load  #{File.join(LAUNCHD_DIRECTORY, LAUNCHD_FILE)}`
+`sudo launchctl load  #{LAUNCHD_PATH}`
 `sudo launchctl start #{LAUNCHD_LABEL}`
 
 NSLog('Jenkins install complete.')
