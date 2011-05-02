@@ -9,6 +9,18 @@ Right now it is just a simple MacRuby script, but it has most of the features th
 - Logs are sent to `/Library/Logs/Jenkins`
 - A launchd plist is created and installed for Jenkins
 
+## Running the installer
+
+5 second how-to:
+
+```bash
+# If you want Jenkins to listen on the default port
+sudo ./setup.rb
+
+# If you want Jenkins to listen on a different port
+sudo ./setup.rb --httpPort 9090
+```
+
 ## Start/Stop script
 
 10 second how-to:
