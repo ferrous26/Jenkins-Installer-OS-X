@@ -9,6 +9,11 @@ Right now it is just a simple MacRuby script, but it has most of the features th
 - Logs are sent to `/Library/Logs/Jenkins`
 - A launchd plist is created and installed for Jenkins
 
+## Special thanks to
+
+* [Thomas Bartelmess](http://github.com/tbartelmess) for the
+  start/stop script
+
 ## Contributing to keychain
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
