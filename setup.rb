@@ -3,7 +3,21 @@
 framework 'Foundation'
 
 require 'fileutils'
-include FileUtils
+require 'optparse'
+
+include FileUtils  
+
+
+options = {}
+  OptionParser.new do |opts|
+    opts.banner = "Usage: setup.rb [options]"
+
+    opts.on("-p", "--httpPort PORT",  "Port for jenkins HTTP Interface") do |p|
+      options[:port] = p
+    end
+  end.parse!
+
+  
 
 
 unless ENV['USER'] == 'root'
@@ -43,13 +57,20 @@ NSLog('Creating launchd plist')
 LAUNCHD_LABEL     = 'org.jenkins-ci.jenkins'
 LAUNCHD_DIRECTORY = '/Library/LaunchDaemons'
 LAUNCHD_FILE      = "#{LAUNCHD_LABEL}.plist"
+
+arguments = [ '/usr/bin/java', '-jar']
+
+if options.has_key?(:port)
+  arguments.push('--httpPort %i' % options[:port]) 
+end     
+arguments.push(JENKINS_WAR_FILE)
 LAUNCHD_SCRIPT    = {
   'Label'                => LAUNCHD_LABEL,
   'RunAtLoad'            => true,
   'EnvironmentVariables' => { 'JENKINS_HOME' => JENKINS_HOME_DIR },
   'StandardOutPath'      => File.join(JENKINS_LOG_DIR, 'jenkins.log'),
   'StandardErrorPath'    => File.join(JENKINS_LOG_DIR, 'jenkins-error.log'),
-  'ProgramArguments'     => [ '/usr/bin/java', '-jar', JENKINS_WAR_FILE ]
+  'ProgramArguments'     => arguments
   # @todo Maybe setup Bonjour using the Socket key
 }
 
