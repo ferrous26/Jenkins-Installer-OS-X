@@ -1,5 +1,9 @@
 # Jenkins Installer for Mac OS X
 
+NOTE: The official Jenkins installer has become much more mature since
+this project started. The only advantage to using this installer now
+is that it comes with the a control script.
+
 This project aims to create a Mac OS installer package for setting up Jenkins on a Mac.
 
 Right now it is just a simple MacRuby script, but it has most of the features that the installer will have.
